@@ -1,0 +1,153 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+void QuickSort(int start, int end, vector<int>& a);
+void BubbleSort(vector<int>& a);
+void SpecialSort(vector<int>& a, int n);
+void InsertSort(vector<int>& a, int n);
+void Swap(int& a, int& b);
+
+bool Log(int x, int result, int sum, int cnt);
+
+int main()
+{
+	int n;
+	int result = 0;
+	cin >> n;
+
+	for (int i = n - 1; i > 0;i--)
+	{
+		int cnt = 0;
+		if (Log(i, n, 0, cnt))
+		{
+			cout <<" = " << n;
+			cout << endl;
+			result++;
+		}
+	}
+	cout << result;
+	
+}
+
+bool Log(int x, int result, int sum, int cnt)
+{
+	if (x <= 0)
+		return false;
+
+	if (x + sum == result)
+	{
+		cout << x << " + ";
+		return true;
+	}
+
+	if (x + sum > result)
+		return false;
+
+	if (x + sum < result)
+	{
+		if (Log(x - 1, result, x + sum, cnt + 1))
+		{
+			if (cnt > 0)
+			{
+				cout << x << " + ";
+			}
+			else
+				cout << x;
+		}
+			
+	}
+		
+}
+
+void InsertSort(vector<int>& a, int n)
+{
+	int i, k;
+	for (int i = 1; i < n; i++)
+	{
+		int key = a[i];
+		for (k = i - 1; k >= 0 && a[k] > key;k--)
+		{
+			a[k + 1] = a[k];
+		}
+
+		a[k + 1] = key;
+	}
+}
+
+void SpecialSort(vector<int>& a, int n)
+{
+	for (int i = n - 1; i > 0;i--)
+	{
+		for (int k = 0; k < i; k++)
+		{
+			if (a[k] < 0 && a[k + 1] < 0)
+			{
+				
+			}
+
+			else if (a[k] < 0 || a[k + 1] < 0)
+			{
+				if (a[k] > a[k + 1])
+				{
+					Swap(a[k], a[k + 1]);
+				}
+			}
+		}
+	}
+}
+
+void Swap(int& a, int& b)
+{
+	int temp = a;
+	a = b;
+	b = temp;
+}
+
+void BubbleSort(vector<int>& a)
+{
+	int n = a.size();
+
+	for (int i = n - 1; i > 0;i--)
+	{
+		for (int k = 0; k < i; k++)
+		{
+			if (a[k] > a[k + 1])
+			{
+				int temp = a[k];
+				a[k] = a[k + 1];
+				a[k + 1] = temp;
+			}
+		}
+	}
+}
+
+void QuickSort(int start, int end, vector<int>& a)
+{
+	if (start >= end)
+		return;
+
+	int left = start;
+	int right = start;
+
+	int pivot = end;
+
+	while (right < pivot)
+	{
+		if (a[right] < a[pivot])
+		{
+			Swap(a[right], a[left]);
+			left++;
+		}
+
+		right++;
+	}
+
+	Swap(a[pivot], a[left]);
+
+	QuickSort(start, left - 1, a);
+	QuickSort(left + 1, end, a);
+}
+
