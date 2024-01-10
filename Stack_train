@@ -1,0 +1,64 @@
+#include <iostream>
+#include <stack>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+int main() 
+{
+	int n;
+	cin >> n;
+
+	vector<int> a(n, 0);
+	vector<char> b;
+	stack<int> stk;
+
+	for (int i = 0; i < n;i++)
+	{
+		cin >> a[i];
+	}
+
+	int i = 0;
+	int k = 1;
+
+	while (i < n)
+	{
+		if (stk.size() == 0 || stk.top() != k)
+		{
+			stk.push(a[i]);
+			b.push_back('P');
+			i++;
+		}
+		if (stk.top() == k)
+		{
+			stk.pop();
+			b.push_back('O');
+			k++;
+		}
+
+	}
+	
+	while (!stk.empty())
+	{
+		if (stk.top() == k)
+		{
+			stk.pop();
+			b.push_back('O');
+			k++;
+		}
+		else
+		{
+			cout << "impossible";
+			return 0;
+		}
+	}
+
+	for (int j = 0; j < b.size(); j++)
+	{
+		cout << b[j];
+	}
+}
+
+
