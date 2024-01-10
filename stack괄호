@@ -1,0 +1,45 @@
+#include <iostream>
+#include <stack>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+int main() 
+{
+	char a[30];
+
+	cin >> a;
+
+	int i = 0;
+	stack<char> stk;
+
+	while (a[i] != '\0')
+	{
+		if (a[i] == ')')
+		{
+			if (stk.size() == 0)
+			{
+				cout << "NO";
+				return 0;
+			}
+			else
+			{
+				stk.pop();
+			}
+		}
+		else if(a[i] == '(')
+		{
+			stk.push('(');
+		}
+
+		i++;
+	}
+
+	if (stk.size() == 0)
+		cout << "YES";
+	else
+		cout << "NO";
+}
+
+
