@@ -1,0 +1,37 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+int main() 
+{
+	int n;
+	cin >> n;
+	vector<int> a(n + 2, 0);
+	a[1] = 1;
+	
+	int p2 = 1, p3 =1 , p5 = 1, chk = 2;
+
+	while (chk < n + 2)
+	{
+		int two = a[p2] * 2;
+		int three = a[p3] * 3;
+		int five = a[p5] * 5;
+
+		int min;
+		min = (two < three ? (two < five ? two : five) : (three < five ? three : five));
+
+		a[chk] = min;
+		chk++;
+		if (two == min)
+			p2++;
+		if (three == min)
+			p3++;
+		if (five == min)
+			p5++;
+	}
+
+	cout << a[n];
+}
